@@ -3,6 +3,7 @@ import DebugConfig from './DebugConfig'
 import AppConfig from './AppConfig'
 
 // Allow/disallow font-scaling in app
+if (Text.defaultProps == null) Text.defaultProps = {};
 Text.defaultProps.allowFontScaling = AppConfig.allowTextFontScaling
 
 if (__DEV__) {

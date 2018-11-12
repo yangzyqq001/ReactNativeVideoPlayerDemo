@@ -6,7 +6,37 @@ import { Images } from '../Themes'
 import styles from './Styles/LaunchScreenStyles'
 
 export default class LaunchScreen extends Component {
-  render () {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nRemainTime: 1
+    }
+  }
+
+  next() {
+    this.timer = setInterval(() => {
+      this.setState(previousState => {
+        let newValue = previousState.nRemainTime - 1;
+        console.log(newValue);
+        if (newValue <= 0) {
+          console.log("go next");
+          if (this.timer) {
+            clearInterval(this.timer);
+          }
+          this.props.navigation.navigate('MainScreen');
+        } else {
+          this.setState({
+            nRemainTime: newValue
+          });
+        }
+      });
+    }, 1000);
+  }
+
+  componentDidMount() {
+    this.next();
+  }
+  render() {
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
